@@ -57,8 +57,8 @@ void pawelhash(const char* input, char* output, uint32_t len)
 	{
 		printf ("%.8x", hashA[ii]);
 	}
-    printf ("Pawelhash, fugue512 hash: %x\n", hashA);
-    printf ("Pawelhash, fugue512 hash64: %0x64\n", hashA);
+    printf ("Pawelhash, fugue512 hash: %0x\n", hashA);
+    printf ("Pawelhash, fugue512 hash64: %0x064\n", hashA);
 	printf ("\n");
 
     sph_sha512_init(&ctx_sha2);
