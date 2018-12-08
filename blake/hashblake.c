@@ -7,7 +7,7 @@
 
 void blake2s_hash(const char* input, char* output, uint32_t len)
 {
-    uint32_t hash[8];
+    uint8_t hash[BLAKE2S_OUTBYTES];
     blake2s_state S[1];
     blake2s_init( S, BLAKE2S_OUTBYTES );
     blake2s_update( S, input, len );
