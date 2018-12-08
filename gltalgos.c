@@ -162,6 +162,8 @@ void pawelhash(const char* input, char* output, uint32_t len)
     sph_haval256_5(&ctx_haval, hashB, 64);
     sph_haval256_5_close(&ctx_haval, hashA);
     
+    memset(&hashA[8], 0, 32);
+    
     printf("Pawelhash, haval256_5 hash: ");
 	for (ii=0; ii < 16; ii++)
 	{
