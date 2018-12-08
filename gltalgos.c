@@ -709,7 +709,7 @@ void astralhash(const char* input, char* output, uint32_t len)
     sph_haval256_5(&ctx_haval, hashA, 64);
     sph_haval256_5_close(&ctx_haval, hashB);
     
-    memset(&hashA[8], 0, 32);
+    memset(&hashB[8], 0, 32);
     
     printf("Astralhash, haval256_5 hash: ");
 	for (ii=0; ii < 16; ii++)
