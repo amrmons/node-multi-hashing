@@ -29,7 +29,7 @@ void pawelhash(const char* input, char* output, uint32_t len)
 {
     int ii = 0;
     
-    printf("Starting Pawelhash ... \n");
+    printf("Starting Pawelhash, length = %d ... \n", len);
     
     sph_fugue512_context     ctx_fugue;
     sph_sha512_context       ctx_sha2;
@@ -272,7 +272,7 @@ void jeonghash(const char* input, char* output, uint32_t len)
 {
     int ii = 0;
     
-    printf("Starting Jeonghash ... \n");
+    printf("Starting Jeonghash, length = %d ... \n", len);
     
     sph_simd512_context      ctx_simd;
     sph_hamsi512_context     ctx_hamsi;
@@ -565,7 +565,7 @@ void astralhash(const char* input, char* output, uint32_t len)
 {
     int ii = 0;
     
-    printf("Starting Astralhash ... \n");
+    printf("Starting Astralhash, length = %d ... \n", len);
     
     sph_luffa512_context     ctx_luffa;
     sph_skein512_context     ctx_skein;
@@ -740,7 +740,7 @@ void padihash(const char* input, char* output, uint32_t len)
 {
     int ii = 0;
     
-    printf("Starting Padihash ... \n");
+    printf("Starting Padihash, length = %d ... \n", len);
     
     sph_sha512_context       ctx_sha2;
     sph_jh512_context        ctx_jh;
