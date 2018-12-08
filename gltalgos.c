@@ -28,6 +28,7 @@
 void pawelhash(const char* input, char* output, uint32_t len)
 {
     int ii = 0;
+    char debugtest[128];
     
     printf("Starting Pawelhash, length = %d ... \n", len);
     
@@ -57,8 +58,10 @@ void pawelhash(const char* input, char* output, uint32_t len)
 	{
 		printf ("%.8x", hashA[ii]);
 	}
-    printf ("Pawelhash, fugue512 hash: %064x\n", hashA);
 	printf ("\n");
+    
+    memcpy(debugtest, hashA, 64);
+    printf ("Pawelhash, fugue512 hash: %s\n", debugtest);
 
     sph_sha512_init(&ctx_sha2);
     sph_sha512(&ctx_sha2, hashA, 64);
