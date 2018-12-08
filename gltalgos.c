@@ -88,6 +88,8 @@ void pawelhash(const char* input, char* output, uint32_t len)
     sph_haval256_5(&ctx_haval, hashB, 64);
     sph_haval256_5_close(&ctx_haval, hashA);
     
+    memset(&hashA[8], 0, 32);
+    
     sph_bmw512_init(&ctx_bmw);
     sph_bmw512(&ctx_bmw, hashA, 64);
     sph_bmw512_close(&ctx_bmw, hashB);
@@ -301,6 +303,8 @@ void astralhash(const char* input, char* output, uint32_t len)
     sph_haval256_5(&ctx_haval, hashA, 64);
     sph_haval256_5_close(&ctx_haval, hashB);
     
+    memset(&hashB[8], 0, 32);
+    
     sph_sha512_init(&ctx_sha2);
     sph_sha512(&ctx_sha2, hashB, 64);
     sph_sha512_close(&ctx_sha2, hashA);
@@ -346,6 +350,8 @@ void padihash(const char* input, char* output, uint32_t len)
     sph_haval256_5(&ctx_haval, hashA, 64);
     sph_haval256_5_close(&ctx_haval, hashB);
     
+    memset(&hashB[8], 0, 32);
+    
     sph_cubehash512_init(&ctx_cubehash);
     sph_cubehash512(&ctx_cubehash, hashB, 64);
     sph_cubehash512_close(&ctx_cubehash, hashA);
@@ -378,6 +384,8 @@ void padihash(const char* input, char* output, uint32_t len)
     sph_haval256_5(&ctx_haval, hashA, 64);
     sph_haval256_5_close(&ctx_haval, hashB);
     
+    memset(&hashB[8], 0, 32);
+    
     sph_cubehash512_init(&ctx_cubehash);
     sph_cubehash512(&ctx_cubehash, hashB, 64);
     sph_cubehash512_close(&ctx_cubehash, hashA);
@@ -397,6 +405,8 @@ void padihash(const char* input, char* output, uint32_t len)
     sph_haval256_5_init(&ctx_haval);
     sph_haval256_5(&ctx_haval, hashB, 64);
     sph_haval256_5_close(&ctx_haval, hashA);
+    
+    memset(&hashA[8], 0, 32);
     
     sph_bmw512_init(&ctx_bmw);
     sph_bmw512(&ctx_bmw, hashA, 64);
