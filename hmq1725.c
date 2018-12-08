@@ -122,15 +122,17 @@ void HMQ1725_hash(const char* input, char* output, uint32_t len)
 
     if ((hashA[0] & mask) != zero) // 10
     {
-       sph_whirlpool_init(&ctx_whirlpool);
+         sph_whirlpool_init(&ctx_whirlpool);
 	     sph_whirlpool (&ctx_whirlpool, hashA, 64); // 10
 	     sph_whirlpool_close(&ctx_whirlpool, hashB); // 11 
     }
     else
     {
-       sph_haval256_5_init(&ctx_haval);
+         sph_haval256_5_init(&ctx_haval);
 	     sph_haval256_5 (&ctx_haval, hashA, 64); // 10
 	     sph_haval256_5_close(&ctx_haval, hashB); // 11
+         
+         memset(&hashB[8], 0, 32);
     }
 
     sph_echo512_init(&ctx_echo);
@@ -209,6 +211,8 @@ void HMQ1725_hash(const char* input, char* output, uint32_t len)
         sph_haval256_5_init(&ctx_haval);
         sph_haval256_5 (&ctx_haval, hashA, 64); // 22
         sph_haval256_5_close(&ctx_haval, hashB); // 23
+        
+        memset(&hashB[8], 0, 32);
     }
     else
     {
