@@ -17,7 +17,7 @@
                 "fugue.c",
                 "groestl.c",
                 "gltalgos.c",
-                "gltkeccak.c",
+                "keccakc.c",
                 "hefty1.c",
                 "hmq1725.c",
                 "keccak.c",

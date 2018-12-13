@@ -1,4 +1,4 @@
-#include "gltkeccak.h"
+#include "keccakc.h"
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
@@ -6,7 +6,7 @@
 
 #include "sha3/sph_keccak.h"
 
-void gltkeccak_hash(const char* input, char* output, uint32_t len)
+void keccakc_hash(const char* input, char* output, uint32_t len)
 {
     sph_keccak256_context ctx_keccak;
     uint32_t hash[16];	
