@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include "nan.h"
 
-#include "argon/hashargon.h"
+#include "argon2d/hashargon.h"
 
 extern "C" {
     #include "allium.h"
