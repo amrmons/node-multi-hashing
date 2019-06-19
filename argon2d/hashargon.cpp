@@ -5,11 +5,14 @@
 
 #include "argon2.h"
 #include "hashargon.h"
+#include "../nan.h"
 
 #include <cstring>
 #include <cstdlib>
 #include <stdexcept>
 #include <assert.h>
+
+#define THROW_ERROR_EXCEPTION(x) Nan::ThrowError(x)
 
 static const char* POW_SECRET = "fa2a1f17edbb39496a4d1c9ee643797bc2b0d72dd9038e3646872c0fd7d3fd56"; // The GLT hardfork 1 block
 static const size_t INPUT_BYTES = 80;   // Size of a block header in bytes.
