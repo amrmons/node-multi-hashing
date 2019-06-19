@@ -10,7 +10,7 @@
 #include "facet_five.h"
 #include "facet_six.h"
 
-void HoneyBee( char *in, unsigned int sz, unsigned char * output )
+void HoneyBee( const char *in, unsigned int sz, unsigned char * output )
 {
 	memcpy( output, &in[0],     36 );
 	memcpy( output + 36, &in[sz-28], 28 );  
@@ -66,7 +66,7 @@ void honeycomb_hash(const char* input, char* output)
         hash[(10*64)+i] = honey[i]^hash[(9*64)+i];
     
     for(i = 0; i < 64; i++)
-        hash[(11*64]+i) = hash[(8*64)+i]^hash[(10*64)+i];
+        hash[(11*64)+i] = hash[(8*64)+i]^hash[(10*64)+i];
 	
     memcpy(output, hash + 11, 32);
 }
