@@ -24,7 +24,7 @@
 #include "sha3/sph_gost.h"
 #include "sha3/sph_panama.h"
 #include "sha3/lane.h"
-#include "blake/blake2s-ref.h"
+#include "blake/blake2.h"
 #include "lyra2.h"
 #include "SWIFFTX/SWIFFTX.h"
 
