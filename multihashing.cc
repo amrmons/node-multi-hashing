@@ -23,7 +23,7 @@ extern "C" {
     #include "hefty1.h"
     #include "hex.h"
     #include "hmq1725.h"
-    #include "honeycomb/hash_honeycomb.h"
+    #include "honeycomb/honeycomb.h"
     #include "jh.h"
     #include "keccak.h"
     #include "lyra2.h"
