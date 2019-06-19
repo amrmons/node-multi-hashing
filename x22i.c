@@ -21,6 +21,8 @@
 #include "sha3/sph_sha2.h"
 #include "sha3/sph_haval.h"
 #include "sha3/sph_gost.h"
+#include "sha3/sph_tiger.h"
+#include "SWIFFTX/SWIFFTX.h"
 
 void x22i_hash(const char* input, char* output)
 {
