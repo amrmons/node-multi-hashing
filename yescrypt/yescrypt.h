@@ -40,6 +40,10 @@ extern "C" {
 
 void yescrypt_hash_sp(const char *input, char *output);
 void yescrypt_hash(const char *input, char *output);
+void yescrypt_r16v2_hash(const char *input, char *output);
+void yescrypt_r24_hash(const char *input, char *output);
+void yescrypt_r8_hash(const char *input, char *output);
+void yescrypt_r32_hash(const char *input, char *output);
 
 
 

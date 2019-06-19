@@ -38,7 +38,7 @@ const char *argon2_type2string(argon2_type type, int uppercase) {
 
 int argon2_ctx(argon2_context *context, argon2_type type) {
     /* 1. Validate all inputs */
-    int result = validate_inputs(context);
+    int result = glt_argon2_validate_inputs(context);
     uint32_t memory_blocks, segment_length;
     argon2_instance_t instance;
 
@@ -72,23 +72,27 @@ int argon2_ctx(argon2_context *context, argon2_type type) {
     instance.threads = context->threads;
     instance.type = type;
 
+    if (instance.threads > instance.lanes) {
+        instance.threads = instance.lanes;
+    }
+
     /* 3. Initialization: Hashing inputs, allocating memory, filling first
      * blocks
      */
-    result = initialize(&instance, context);
+    result = glt_argon2_initialize(&instance, context);
 
     if (ARGON2_OK != result) {
         return result;
     }
 
     /* 4. Filling memory */
-    result = fill_memory_blocks(&instance);
+    result = glt_argon2_fill_memory_blocks(&instance);
 
     if (ARGON2_OK != result) {
         return result;
     }
     /* 5. Finalization */
-    finalize(context, &instance);
+    glt_argon2_finalize(context, &instance);
 
     return ARGON2_OK;
 }
@@ -103,6 +107,14 @@ int argon2_hash(const uint32_t t_cost, const uint32_t m_cost,
     argon2_context context;
     int result;
     uint8_t *out;
+
+    if (pwdlen > ARGON2_MAX_PWD_LENGTH) {
+        return ARGON2_PWD_TOO_LONG;
+    }
+
+    if (saltlen > ARGON2_MAX_SALT_LENGTH) {
+        return ARGON2_SALT_TOO_LONG;
+    }
 
     if (hashlen > ARGON2_MAX_OUTLEN) {
         return ARGON2_OUTPUT_TOO_LONG;
@@ -245,6 +257,10 @@ int argon2_verify(const char *encoded, const void *pwd, const size_t pwdlen,
     size_t encoded_len;
     uint32_t max_field_len;
 
+    if (pwdlen > ARGON2_MAX_PWD_LENGTH) {
+        return ARGON2_PWD_TOO_LONG;
+    }
+
     if (encoded == NULL) {
         return ARGON2_DECODING_FAIL;
     }
@@ -268,7 +284,7 @@ int argon2_verify(const char *encoded, const void *pwd, const size_t pwdlen,
     }
 
     ctx.pwd = (uint8_t *)pwd;
-    ctx.pwdlen = pwdlen;
+    ctx.pwdlen = (uint32_t)pwdlen;
 
     ret = decode_string(&ctx, encoded, type);
     if (ret != ARGON2_OK) {
