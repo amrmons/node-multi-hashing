@@ -789,67 +789,67 @@ void cryptoandcoffee_hash(const char* input, char* output, uint32_t len)
     sph_blake512_close(&ctx_blake, hashRound1);
     
     sph_bmw512_init(&ctx_bmw);
-    sph_bmw512 (&ctx_bmw, hashRound1, 64);
+    sph_bmw512 (&ctx_bmw, hashRound1, nHashlen64);
     sph_bmw512_close(&ctx_bmw, hashRound1 + 1*nHashlen64);
 
     sph_groestl512_init(&ctx_groestl);
-    sph_groestl512 (&ctx_groestl, hashRound1 + 1*nHashlen64, 64);
+    sph_groestl512 (&ctx_groestl, hashRound1 + 1*nHashlen64, nHashlen64);
     sph_groestl512_close(&ctx_groestl, hashRound1 + 2*nHashlen64);
 
     sph_skein512_init(&ctx_skein512);
-    sph_skein512 (&ctx_skein512, hashRound1 + 2*nHashlen64, 64);
+    sph_skein512 (&ctx_skein512, hashRound1 + 2*nHashlen64, nHashlen64);
     sph_skein512_close(&ctx_skein512, hashRound1 + 3*nHashlen64);
     
     sph_jh512_init(&ctx_jh);
-    sph_jh512 (&ctx_jh, hashRound1 + 3*nHashlen64, 64);
+    sph_jh512 (&ctx_jh, hashRound1 + 3*nHashlen64, nHashlen64);
     sph_jh512_close(&ctx_jh, hashRound1 + 4*nHashlen64);
     
     sph_keccak512_init(&ctx_keccak);
-    sph_keccak512 (&ctx_keccak, hashRound1 + 4*nHashlen64, 64);
+    sph_keccak512 (&ctx_keccak, hashRound1 + 4*nHashlen64, nHashlen64);
     sph_keccak512_close(&ctx_keccak, hashRound1 + 5*nHashlen64);
 
     sph_luffa512_init(&ctx_luffa);
-    sph_luffa512 (&ctx_luffa, hashRound1 + 5*nHashlen64, 64);
+    sph_luffa512 (&ctx_luffa, hashRound1 + 5*nHashlen64, nHashlen64);
     sph_luffa512_close(&ctx_luffa, hashRound1 + 6*nHashlen64);
     
     sph_cubehash512_init(&ctx_cubehash);
-    sph_cubehash512 (&ctx_cubehash, hashRound1 + 6*nHashlen64, 64);
+    sph_cubehash512 (&ctx_cubehash, hashRound1 + 6*nHashlen64, nHashlen64);
     sph_cubehash512_close(&ctx_cubehash, hashRound1 + 7*nHashlen64);
     
     sph_shavite512_init(&ctx_shavite);
-    sph_shavite512(&ctx_shavite, hashRound1 + 7*nHashlen64, 64);
+    sph_shavite512(&ctx_shavite, hashRound1 + 7*nHashlen64, nHashlen64);
     sph_shavite512_close(&ctx_shavite, hashRound1 + 8*nHashlen64);
         
     sph_simd512_init(&ctx_simd);
-    sph_simd512 (&ctx_simd, hashRound1 + 8*nHashlen64, 64);
+    sph_simd512 (&ctx_simd, hashRound1 + 8*nHashlen64, nHashlen64);
     sph_simd512_close(&ctx_simd, hashRound1 + 9*nHashlen64);
 
     sph_echo512_init(&ctx_echo);
-    sph_echo512 (&ctx_echo, hashRound1 + 9*nHashlen64, 64);
+    sph_echo512 (&ctx_echo, hashRound1 + 9*nHashlen64, nHashlen64);
     sph_echo512_close(&ctx_echo, hashRound1 + 10*nHashlen64);
 
     sph_hamsi512_init(&ctx_hamsi);
-    sph_hamsi512 (&ctx_hamsi, hashRound1 + 10*nHashlen64, 64);
+    sph_hamsi512 (&ctx_hamsi, hashRound1 + 10*nHashlen64, nHashlen64);
     sph_hamsi512_close(&ctx_hamsi, hashRound1 + 11*nHashlen64);
 
     sph_fugue512_init(&ctx_fugue);
-    sph_fugue512 (&ctx_fugue, hashRound1 + 11*nHashlen64, 64);
+    sph_fugue512 (&ctx_fugue, hashRound1 + 11*nHashlen64, nHashlen64);
     sph_fugue512_close(&ctx_fugue, hashRound1 + 12*nHashlen64);
 
     sph_shabal512_init(&ctx_shabal);
-    sph_shabal512 (&ctx_shabal, hashRound1 + 12*nHashlen64, 64);
+    sph_shabal512 (&ctx_shabal, hashRound1 + 12*nHashlen64, nHashlen64);
     sph_shabal512_close(&ctx_shabal, hashRound1 + 13*nHashlen64);
 
     sph_whirlpool_init(&ctx_whirlpool);
-    sph_whirlpool (&ctx_whirlpool, hashRound1 + 13*nHashlen64, 64);
+    sph_whirlpool (&ctx_whirlpool, hashRound1 + 13*nHashlen64, nHashlen64);
     sph_whirlpool_close(&ctx_whirlpool, hashRound1 + 14*nHashlen64);
 
     sph_sha512_init(&ctx_sha2);
-    sph_sha512 (&ctx_sha2, hashRound1 + 14*nHashlen64, 64);
+    sph_sha512 (&ctx_sha2, hashRound1 + 14*nHashlen64, nHashlen64);
     sph_sha512_close(&ctx_sha2, hashRound1 + 15*nHashlen64);
 
     sph_haval256_5_init(&ctx_haval);
-    sph_haval256_5 (&ctx_haval, hashRound1 + 15*nHashlen64, 64);
+    sph_haval256_5 (&ctx_haval, hashRound1 + 15*nHashlen64, nHashlen64);
     sph_haval256_5_close(&ctx_haval, havalOutHash);
     
     // X17 hashes END (Round 1.)
@@ -871,95 +871,95 @@ void cryptoandcoffee_hash(const char* input, char* output, uint32_t len)
     sph_blake512_close(&ctx_blake, hashRound2);
     
     sph_bmw512_init(&ctx_bmw);
-    sph_bmw512 (&ctx_bmw, hashRound2, 64);
+    sph_bmw512 (&ctx_bmw, hashRound2, nHashlen64);
     sph_bmw512_close(&ctx_bmw, hashRound2 + 1*nHashlen64);
 
     sph_groestl512_init(&ctx_groestl);
-    sph_groestl512 (&ctx_groestl, hashRound2 + 1*nHashlen64, 64);
+    sph_groestl512 (&ctx_groestl, hashRound2 + 1*nHashlen64, nHashlen64);
     sph_groestl512_close(&ctx_groestl, hashRound2 + 2*nHashlen64);
 
     sph_skein512_init(&ctx_skein512);
-    sph_skein512 (&ctx_skein512, hashRound2 + 2*nHashlen64, 64);
+    sph_skein512 (&ctx_skein512, hashRound2 + 2*nHashlen64, nHashlen64);
     sph_skein512_close(&ctx_skein512, hashRound2 + 3*nHashlen64);
     
     sph_jh512_init(&ctx_jh);
-    sph_jh512 (&ctx_jh, hashRound2 + 3*nHashlen64, 64);
+    sph_jh512 (&ctx_jh, hashRound2 + 3*nHashlen64, nHashlen64);
     sph_jh512_close(&ctx_jh, hashRound2 + 4*nHashlen64);
     
     sph_keccak512_init(&ctx_keccak);
-    sph_keccak512 (&ctx_keccak, hashRound2 + 4*nHashlen64, 64);
+    sph_keccak512 (&ctx_keccak, hashRound2 + 4*nHashlen64, nHashlen64);
     sph_keccak512_close(&ctx_keccak, hashRound2 + 5*nHashlen64);
 
     sph_luffa512_init(&ctx_luffa);
-    sph_luffa512 (&ctx_luffa, hashRound2 + 5*nHashlen64, 64);
+    sph_luffa512 (&ctx_luffa, hashRound2 + 5*nHashlen64, nHashlen64);
     sph_luffa512_close(&ctx_luffa, hashRound2 + 6*nHashlen64);
     
     sph_cubehash512_init(&ctx_cubehash);
-    sph_cubehash512 (&ctx_cubehash, hashRound2 + 6*nHashlen64, 64);
+    sph_cubehash512 (&ctx_cubehash, hashRound2 + 6*nHashlen64, nHashlen64);
     sph_cubehash512_close(&ctx_cubehash, hashRound2 + 7*nHashlen64);
     
     sph_shavite512_init(&ctx_shavite);
-    sph_shavite512(&ctx_shavite, hashRound2 + 7*nHashlen64, 64);
+    sph_shavite512(&ctx_shavite, hashRound2 + 7*nHashlen64, nHashlen64);
     sph_shavite512_close(&ctx_shavite, hashRound2 + 8*nHashlen64);
         
     sph_simd512_init(&ctx_simd);
-    sph_simd512 (&ctx_simd, hashRound2 + 8*nHashlen64, 64);
+    sph_simd512 (&ctx_simd, hashRound2 + 8*nHashlen64, nHashlen64);
     sph_simd512_close(&ctx_simd, hashRound2 + 9*nHashlen64);
 
     sph_echo512_init(&ctx_echo);
-    sph_echo512 (&ctx_echo, hashRound2 + 9*nHashlen64, 64);
+    sph_echo512 (&ctx_echo, hashRound2 + 9*nHashlen64, nHashlen64);
     sph_echo512_close(&ctx_echo, hashRound2 + 10*nHashlen64);
 
     sph_hamsi512_init(&ctx_hamsi);
-    sph_hamsi512 (&ctx_hamsi, hashRound2 + 10*nHashlen64, 64);
+    sph_hamsi512 (&ctx_hamsi, hashRound2 + 10*nHashlen64, nHashlen64);
     sph_hamsi512_close(&ctx_hamsi, hashRound2 + 11*nHashlen64);
 
     sph_fugue512_init(&ctx_fugue);
-    sph_fugue512 (&ctx_fugue, hashRound2 + 11*nHashlen64, 64);
+    sph_fugue512 (&ctx_fugue, hashRound2 + 11*nHashlen64, nHashlen64);
     sph_fugue512_close(&ctx_fugue, hashRound2 + 12*nHashlen64);
 
     sph_shabal512_init(&ctx_shabal);
-    sph_shabal512 (&ctx_shabal, hashRound2 + 12*nHashlen64, 64);
+    sph_shabal512 (&ctx_shabal, hashRound2 + 12*nHashlen64, nHashlen64);
     sph_shabal512_close(&ctx_shabal, hashRound2 + 13*nHashlen64);
 
     sph_whirlpool_init(&ctx_whirlpool);
-    sph_whirlpool (&ctx_whirlpool, hashRound2 + 13*nHashlen64, 64);
+    sph_whirlpool (&ctx_whirlpool, hashRound2 + 13*nHashlen64, nHashlen64);
     sph_whirlpool_close(&ctx_whirlpool, hashRound2 + 14*nHashlen64);
 
     sph_sha512_init(&ctx_sha2);
-    sph_sha512 (&ctx_sha2, hashRound2 + 14*nHashlen64, 64);
+    sph_sha512 (&ctx_sha2, hashRound2 + 14*nHashlen64, nHashlen64);
     sph_sha512_close(&ctx_sha2, hashRound2 + 15*nHashlen64);
 
     sph_haval256_5_init(&ctx_haval);
-    sph_haval256_5 (&ctx_haval, hashRound2 + 15*nHashlen64, 64);
+    sph_haval256_5 (&ctx_haval, hashRound2 + 15*nHashlen64, nHashlen64);
     sph_haval256_5_close(&ctx_haval, havalOutHash + 1*nHashlen32);
     
     // X17 hashes END (Round 2.)
     // Round 3: Nist 5 hashes
     
     sph_blake512_init(&ctx_blake);
-    sph_blake512(&ctx_blake, havalOutHash + 1*nHashlen32, 32);
+    sph_blake512(&ctx_blake, havalOutHash + 1*nHashlen32, nHashlen32);
     sph_blake512_close(&ctx_blake, hashRound3);
 
     sph_groestl512_init(&ctx_groestl);
-    sph_groestl512(&ctx_groestl, hashRound3 64);
+    sph_groestl512(&ctx_groestl, hashRound3, nHashlen64);
     sph_groestl512_close(&ctx_groestl, hashRound3 + 1*nHashlen64);
 
     sph_jh512_init(&ctx_jh);
-    sph_jh512(&ctx_jh, hashRound3 + 1*nHashlen64, 64);
+    sph_jh512(&ctx_jh, hashRound3 + 1*nHashlen64, nHashlen64);
     sph_jh512_close(&ctx_jh, hashRound3 + 2*nHashlen64);
 
     sph_keccak512_init(&ctx_keccak);
-    sph_keccak512(&ctx_keccak, hashRound3 + 2*nHashlen64, 64);
+    sph_keccak512(&ctx_keccak, hashRound3 + 2*nHashlen64, nHashlen64);
     sph_keccak512_close(&ctx_keccak, hashRound3 + 3*nHashlen64);
 
     sph_skein512_init(&ctx_skein512);
-    sph_skein512(&ctx_skein512, hashRound3 + 3*nHashlen64, 64);
+    sph_skein512(&ctx_skein512, hashRound3 + 3*nHashlen64, nHashlen64);
     sph_skein512_close(&ctx_skein512, hashRound3 + 4*nHashlen64);
     
     // Finalize the hash now!
     sph_bmw256_init(&ctx_bmw_final);
-    sph_bmw256 (&ctx_bmw_final, hashRound3 + 4*nHashlen64, 64);
+    sph_bmw256 (&ctx_bmw_final, hashRound3 + 4*nHashlen64, nHashlen64);
     sph_bmw256_close(&ctx_bmw_final, output);
 }
 
@@ -1015,71 +1015,71 @@ void rickhash(const char* input, char* output, uint32_t len)
     sph_shavite512_close(&ctx_shavite512, h512Hashes);
     
     blake2b_init( &ctx_blake2b, BLAKE2B_OUTBYTES );
-    blake2b_update( &ctx_blake2b, h512Hashes, 64 );
+    blake2b_update( &ctx_blake2b, h512Hashes, nHashlen64 );
     blake2b_final( &ctx_blake2b, h512Hashes + 1*nHashlen64, BLAKE2B_OUTBYTES );
     
     sph_bmw512_init(&ctx_bmw512);
-    sph_bmw512 (&ctx_bmw512, h512Hashes + 1*nHashlen64, 64);
+    sph_bmw512 (&ctx_bmw512, h512Hashes + 1*nHashlen64, nHashlen64);
     sph_bmw512_close(&ctx_bmw512, h512Hashes + 2*nHashlen64);
     
     sph_sha512_init(&ctx_sha512);
-    sph_sha512 (&ctx_sha512, h512Hashes + 2*nHashlen64, 64);
+    sph_sha512 (&ctx_sha512, h512Hashes + 2*nHashlen64, nHashlen64);
     sph_sha512_close(&ctx_sha512, h512Hashes + 3*nHashlen64);
     
     sph_blake512_init(&ctx_blake512);
-    sph_blake512 (&ctx_blake512, h512Hashes + 3*nHashlen64, 64);
+    sph_blake512 (&ctx_blake512, h512Hashes + 3*nHashlen64, nHashlen64);
     sph_blake512_close(&ctx_blake512, h512Hashes + 4*nHashlen64);
     
     sph_echo512_init(&ctx_echo512);
-    sph_echo512 (&ctx_echo512, h512Hashes + 4*nHashlen64, 64);
+    sph_echo512 (&ctx_echo512, h512Hashes + 4*nHashlen64, nHashlen64);
     sph_echo512_close(&ctx_echo512, h512Hashes + 5*nHashlen64);
     
-    LYRA2(h512Hashes + 6*nHashlen64, 64, h512Hashes + 5*nHashlen64, 64, h512Hashes + 5*nHashlen64, 64, 1, 4, 4);
+    LYRA2(h512Hashes + 6*nHashlen64, nHashlen64, h512Hashes + 5*nHashlen64, nHashlen64, h512Hashes + 5*nHashlen64, nHashlen64, 1, 4, 4);
     
     sph_shabal512_init(&ctx_shabal512);
-    sph_shabal512 (&ctx_shabal512, h512Hashes + 6*nHashlen64, 64);
+    sph_shabal512 (&ctx_shabal512, h512Hashes + 6*nHashlen64, nHashlen64);
     sph_shabal512_close(&ctx_shabal512, h512Hashes + 7*nHashlen64);
     
     sph_simd512_init(&ctx_simd512);
-    sph_simd512 (&ctx_simd512, h512Hashes + 7*nHashlen64, 64);
+    sph_simd512 (&ctx_simd512, h512Hashes + 7*nHashlen64, nHashlen64);
     sph_simd512_close(&ctx_simd512, h512Hashes + 8*nHashlen64);
     
     sph_jh512_init(&ctx_jh512);
-    sph_jh512 (&ctx_jh512, h512Hashes + 8*nHashlen64, 64);
+    sph_jh512 (&ctx_jh512, h512Hashes + 8*nHashlen64, nHashlen64);
     sph_jh512_close(&ctx_jh512, h512Hashes + 9*nHashlen64);
     
     sph_keccak512_init(&ctx_keccak512);
-    sph_keccak512 (&ctx_keccak512, h512Hashes + 9*nHashlen64, 64);
+    sph_keccak512 (&ctx_keccak512, h512Hashes + 9*nHashlen64, nHashlen64);
     sph_keccak512_close(&ctx_keccak512, h512Hashes + 10*nHashlen64);
     
     sph_groestl512_init(&ctx_groestl512);
-    sph_groestl512 (&ctx_groestl512, h512Hashes + 10*nHashlen64, 64);
+    sph_groestl512 (&ctx_groestl512, h512Hashes + 10*nHashlen64, nHashlen64);
     sph_groestl512_close(&ctx_groestl512, h512Hashes + 11*nHashlen64);
     
     sph_skein512_init(&ctx_skein512);
-    sph_skein512 (&ctx_skein512, h512Hashes + 11*nHashlen64, 64);
+    sph_skein512 (&ctx_skein512, h512Hashes + 11*nHashlen64, nHashlen64);
     sph_skein512_close(&ctx_skein512, h512Hashes + 12*nHashlen64);
     
     sph_luffa512_init(&ctx_luffa512);
-    sph_luffa512 (&ctx_luffa512, h512Hashes + 12*nHashlen64, 64);
+    sph_luffa512 (&ctx_luffa512, h512Hashes + 12*nHashlen64, nHashlen64);
     sph_luffa512_close(&ctx_luffa512, h512Hashes + 13*nHashlen64);
     
     sph_hamsi512_init(&ctx_hamsi512);
-    sph_hamsi512 (&ctx_hamsi512, h512Hashes + 13*nHashlen64, 64);
+    sph_hamsi512 (&ctx_hamsi512, h512Hashes + 13*nHashlen64, nHashlen64);
     sph_hamsi512_close(&ctx_hamsi512, h512Hashes + 14*nHashlen64);
     
-    LYRA2(h512Hashes + 15*nHashlen64, 64, h512Hashes + 14*nHashlen64, 64, h512Hashes + 14*nHashlen64, 64, 1, 8, 8);
+    LYRA2(h512Hashes + 15*nHashlen64, nHashlen64, h512Hashes + 14*nHashlen64, nHashlen64, h512Hashes + 14*nHashlen64, nHashlen64, 1, 8, 8);
     
     sph_fugue512_init(&ctx_fugue512);
-    sph_fugue512 (&ctx_fugue512, h512Hashes + 15*nHashlen64, 64);
+    sph_fugue512 (&ctx_fugue512, h512Hashes + 15*nHashlen64, nHashlen64);
     sph_fugue512_close(&ctx_fugue512, h512Hashes + 16*nHashlen64);
     
     sph_whirlpool_init(&ctx_whirlpool512);
-    sph_whirlpool (&ctx_whirlpool512, h512Hashes + 16*nHashlen64, 64);
+    sph_whirlpool (&ctx_whirlpool512, h512Hashes + 16*nHashlen64, nHashlen64);
     sph_whirlpool_close(&ctx_whirlpool512, h512Hashes + 17*nHashlen64);
     
     sph_cubehash512_init(&ctx_cubehash512);
-    sph_cubehash512 (&ctx_cubehash512, h512Hashes + 17*nHashlen64, 64);
+    sph_cubehash512 (&ctx_cubehash512, h512Hashes + 17*nHashlen64, nHashlen64);
     sph_cubehash512_close(&ctx_cubehash512, finalhash512);
     
     // Now we hash everything with 32 bytes.
@@ -1089,70 +1089,70 @@ void rickhash(const char* input, char* output, uint32_t len)
     sph_shavite256_close(&ctx_shavite256, h256Hashes);
     
     blake2s_init( &ctx_blake2s, BLAKE2S_OUTBYTES );
-    blake2s_update( &ctx_blake2s, h256Hashes, 32 );
+    blake2s_update( &ctx_blake2s, h256Hashes, nHashlen32 );
     blake2s_final( &ctx_blake2s, h256Hashes + 1*nHashlen32, BLAKE2S_OUTBYTES );
     
     sph_bmw256_init(&ctx_bmw256);
-    sph_bmw256 (&ctx_bmw256, h256Hashes + 1*nHashlen32, 32);
+    sph_bmw256 (&ctx_bmw256, h256Hashes + 1*nHashlen32, nHashlen32);
     sph_bmw256_close(&ctx_bmw256, h256Hashes + 2*nHashlen32);
     
     sph_sha256_init(&ctx_sha256);
-    sph_sha256 (&ctx_sha256, h256Hashes + 2*nHashlen32, 32);
+    sph_sha256 (&ctx_sha256, h256Hashes + 2*nHashlen32, nHashlen32);
     sph_sha256_close(&ctx_sha256, h256Hashes + 3*nHashlen32);
     
     sph_blake256_init(&ctx_blake256);
-    sph_blake256 (&ctx_blake256, h256Hashes + 3*nHashlen32, 32);
+    sph_blake256 (&ctx_blake256, h256Hashes + 3*nHashlen32, nHashlen32);
     sph_blake256_close(&ctx_blake256, h256Hashes + 4*nHashlen32);
     
     sph_echo256_init(&ctx_echo256);
-    sph_echo256 (&ctx_echo256, h256Hashes + 4*nHashlen32, 32);
+    sph_echo256 (&ctx_echo256, h256Hashes + 4*nHashlen32, nHashlen32);
     sph_echo256_close(&ctx_echo256, h256Hashes + 5*nHashlen32);
     
-    LYRA2(h256Hashes + 6*nHashlen32, 32, h256Hashes + 5*nHashlen32, 32, h256Hashes + 5*nHashlen32, 32, 1, 4, 4);
+    LYRA2(h256Hashes + 6*nHashlen32, nHashlen32, h256Hashes + 5*nHashlen32, nHashlen32, h256Hashes + 5*nHashlen32, nHashlen32, 1, 4, 4);
     
     sph_shabal256_init(&ctx_shabal256);
-    sph_shabal256 (&ctx_shabal256, h256Hashes + 6*nHashlen32, 32);
+    sph_shabal256 (&ctx_shabal256, h256Hashes + 6*nHashlen32, nHashlen32);
     sph_shabal256_close(&ctx_shabal256, h256Hashes + 7*nHashlen32);
     
     sph_simd256_init(&ctx_simd256);
-    sph_simd256 (&ctx_simd256, h256Hashes + 7*nHashlen32, 32);
+    sph_simd256 (&ctx_simd256, h256Hashes + 7*nHashlen32, nHashlen32);
     sph_simd256_close(&ctx_simd256, h256Hashes + 8*nHashlen32);
     
     sph_jh256_init(&ctx_jh256);
-    sph_jh256 (&ctx_jh256, h256Hashes + 8*nHashlen32, 32);
+    sph_jh256 (&ctx_jh256, h256Hashes + 8*nHashlen32, nHashlen32);
     sph_jh256_close(&ctx_jh256, h256Hashes + 9*nHashlen32);
     
     sph_keccak256_init(&ctx_keccak256);
-    sph_keccak256 (&ctx_keccak256, h256Hashes + 9*nHashlen32, 32);
+    sph_keccak256 (&ctx_keccak256, h256Hashes + 9*nHashlen32, nHashlen32);
     sph_keccak256_close(&ctx_keccak256, h256Hashes + 10*nHashlen32);
     
     sph_groestl256_init(&ctx_groestl256);
-    sph_groestl256 (&ctx_groestl256, h256Hashes + 10*nHashlen32, 32);
+    sph_groestl256 (&ctx_groestl256, h256Hashes + 10*nHashlen32, nHashlen32);
     sph_groestl256_close(&ctx_groestl256, h256Hashes + 11*nHashlen32);
     
     sph_skein256_init(&ctx_skein256);
-    sph_skein256 (&ctx_skein256, h256Hashes + 11*nHashlen32, 32);
+    sph_skein256 (&ctx_skein256, h256Hashes + 11*nHashlen32, nHashlen32);
     sph_skein256_close(&ctx_skein256, h256Hashes + 12*nHashlen32);
     
     sph_luffa256_init(&ctx_luffa256);
-    sph_luffa256 (&ctx_luffa256, h256Hashes + 12*nHashlen32, 32);
+    sph_luffa256 (&ctx_luffa256, h256Hashes + 12*nHashlen32, nHashlen32);
     sph_luffa256_close(&ctx_luffa256, h256Hashes + 13*nHashlen32);
     
     sph_hamsi256_init(&ctx_hamsi256);
-    sph_hamsi256 (&ctx_hamsi256, h256Hashes + 13*nHashlen32, 32);
+    sph_hamsi256 (&ctx_hamsi256, h256Hashes + 13*nHashlen32, nHashlen32);
     sph_hamsi256_close(&ctx_hamsi256, h256Hashes + 14*nHashlen32);
     
-    LYRA2(h256Hashes + 15*nHashlen32, 32, h256Hashes + 14*nHashlen32, 32, h256Hashes + 14*nHashlen32, 32, 1, 8, 8);
+    LYRA2(h256Hashes + 15*nHashlen32, nHashlen32, h256Hashes + 14*nHashlen32, nHashlen32, h256Hashes + 14*nHashlen32, nHashlen32, 1, 8, 8);
     
     sph_fugue256_init(&ctx_fugue256);
-    sph_fugue256 (&ctx_fugue256, h256Hashes + 15*nHashlen32, 32);
+    sph_fugue256 (&ctx_fugue256, h256Hashes + 15*nHashlen32, nHashlen32);
     sph_fugue256_close(&ctx_fugue256, h256Hashes + 16*nHashlen32);
     
     sph_haval256_5_init(&ctx_haval256);
-    sph_haval256_5 (&ctx_haval256, h256Hashes + 16*nHashlen32, 32);
+    sph_haval256_5 (&ctx_haval256, h256Hashes + 16*nHashlen32, nHashlen32);
     sph_haval256_5_close(&ctx_haval256, h256Hashes + 17*nHashlen32);
     
     sph_cubehash256_init(&ctx_cubehash256);
-    sph_cubehash256 (&ctx_cubehash256, h256Hashes + 17*nHashlen32, 32);
+    sph_cubehash256 (&ctx_cubehash256, h256Hashes + 17*nHashlen32, nHashlen32);
     sph_cubehash256_close(&ctx_cubehash256, output);
 }
