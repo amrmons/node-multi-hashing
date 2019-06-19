@@ -87,8 +87,6 @@ NAN_METHOD(tribus) {
     char * input = Buffer::Data(target);
     char *output = (char*) malloc(sizeof(char) * 32);
 
-    uint32_t input_len = Buffer::Length(target);
-
     tribus_hash(input, output);
 
     info.GetReturnValue().Set(Nan::NewBuffer(output, 32).ToLocalChecked());
@@ -108,8 +106,6 @@ NAN_METHOD(allium) {
     char * input = Buffer::Data(target);
     char *output = (char*) malloc(sizeof(char) * 32);
 
-    uint32_t input_len = Buffer::Length(target);
-
     allium_hash(input, output);
 
     info.GetReturnValue().Set(Nan::NewBuffer(output, 32).ToLocalChecked());
@@ -127,8 +123,6 @@ NAN_METHOD(lyra2rev2) {
 
     char * input = Buffer::Data(target);
     char *output = (char*) malloc(sizeof(char) * 32);
-
-    uint32_t input_len = Buffer::Length(target);
 
     lyra2rev2_hash(input, output);
 
@@ -148,8 +142,6 @@ NAN_METHOD(lyra2rev3) {
     char * input = Buffer::Data(target);
     char *output = (char*) malloc(sizeof(char) * 32);
 
-    uint32_t input_len = Buffer::Length(target);
-
     lyra2rev3_hash(input, output);
 
     info.GetReturnValue().Set(Nan::NewBuffer(output, 32).ToLocalChecked());
@@ -167,8 +159,6 @@ NAN_METHOD(lyra2z) {
 
     char * input = Buffer::Data(target);
     char *output = (char*) malloc(sizeof(char) * 32);
-
-    uint32_t input_len = Buffer::Length(target);
 
     lyra2z_hash(input, output);
 
@@ -774,7 +764,6 @@ NAN_METHOD(argon2d)
     char * input = Buffer::Data(target);
     char *output = (char*) malloc(sizeof(char) * 32);
 
-    uint32_t input_len = Buffer::Length(target);
     uint32_t nBlockTime;
     
     memcpy(&nBlockTime, input + 68, 4);
@@ -799,7 +788,6 @@ NAN_METHOD(argon2i)
     char * input = Buffer::Data(target);
     char *output = (char*) malloc(sizeof(char) * 32);
 
-    uint32_t input_len = Buffer::Length(target);
     uint32_t nBlockTime;
     
     memcpy(&nBlockTime, input + 68, 4);
@@ -1176,7 +1164,7 @@ NAN_METHOD(dedal) {
 
     uint32_t input_len = Buffer::Length(target);
 
-    dedal_hash(input, input_len, output);
+    dedal_hash(input, output, input_len);
 
     info.GetReturnValue().Set(Nan::NewBuffer(output, 32).ToLocalChecked());
 }
@@ -1236,7 +1224,7 @@ NAN_METHOD(hex) {
 
     uint32_t input_len = Buffer::Length(target);
 
-    hex_hash(input, output, input_len);
+    hex_hash(input, input_len, output);
 
     info.GetReturnValue().Set(Nan::NewBuffer(output, 32).ToLocalChecked());
 }
