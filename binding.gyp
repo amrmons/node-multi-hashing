@@ -5,13 +5,13 @@
             "sources": [
                 "multihashing.cc",
                 "allium.c",
-                "argon2d/argon2.c"
-                "argon2d/core.c"
-                "argon2d/encoding.c"
-                "argon2d/argon2-helper.c"
-                "argon2d/thread.c"
-                "argon2d/blake2b-argon.c"
-                "argon2d/hashargon.cpp"
+                "argon2d/argon2.c",
+                "argon2d/core.c",
+                "argon2d/encoding.c",
+                "argon2d/argon2-helper.c",
+                "argon2d/thread.c",
+                "argon2d/blake2b-argon.c",
+                "argon2d/hashargon.cpp",
                 "bcrypt.c",
                 "blake.c",
                 "blake/blake2b-ref.c",
