@@ -5,7 +5,7 @@
 
 #include "argon2.h"
 #include "hashargon.h"
-#include "../nan.h"
+#include "nan.h"
 
 #include <cstring>
 #include <cstdlib>
