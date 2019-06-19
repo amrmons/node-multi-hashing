@@ -62,7 +62,7 @@ void x21s_hash(const char* input, char* output)
     char list [] = "0123456789abcdef";
     char order[16], sixteen[16];
     
-    memcpy(prevBlockBytes, input + 4, 32)
+    memcpy(prevBlockBytes, input + 4, 32);
     
     // The bytes are reversed, so we order it correctly.
     size_t i = 0;
@@ -195,6 +195,6 @@ void x21s_hash(const char* input, char* output)
     sph_gost512_close(&ctx_gost, hash + 19*64);
 
     sph_sha256_init(&ctx_sha);
-    sph_sha256 (&ctx_sha, shash + 19*64, 64);
+    sph_sha256 (&ctx_sha, hash + 19*64, 64);
     sph_sha256_close(&ctx_sha, output);
 }
