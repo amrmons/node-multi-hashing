@@ -53,7 +53,7 @@ void x16s_hash(const char* input, char* output)
     char list [] = "0123456789abcdef";
     char order[16], sixteen[16];
     
-    memcpy(prevBlockBytes, input + 4, 32)
+    memcpy(prevBlockBytes, input + 4, 32);
     
     // The bytes are reversed, so we order it correctly.
     size_t i = 0;
@@ -85,7 +85,7 @@ void x16s_hash(const char* input, char* output)
             lenToHash = 64;
         }
 
-        hashSelection = GetNibble(scrambleHash, i); // change PrevBlockHash to scrambleHash (x16s)
+        int hashSelection = GetNibble(order, i); // change PrevBlockHash to order (x16s)
 
         switch(hashSelection) {
             case 0:
