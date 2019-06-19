@@ -69,25 +69,25 @@ void phi2_hash(const char* input, char* output, uint32_t len)
     LYRA2(&hashA[32], 32, &hashB[32], 32, &hashB[32], 32, 1, 8, 8);
 
     sph_jh512_init(&ctx_jh);
-    sph_jh512(&ctx_jh, static_cast<const void*>(hashA), 64);
-    sph_jh512_close(&ctx_jh, static_cast<void*>(hash));
+    sph_jh512(&ctx_jh, hashA, 64);
+    sph_jh512_close(&ctx_jh, hash);
 
     if (hash[0] & 1) {
         sph_gost512_init(&ctx_gost);
-        sph_gost512(&ctx_gost, static_cast<const void*>(hash), 64);
-        sph_gost512_close(&ctx_gost, static_cast<void*>(hash));
+        sph_gost512(&ctx_gost, hash, 64);
+        sph_gost512_close(&ctx_gost, hash);
     } else {
         sph_echo512_init(&ctx_echo);
-        sph_echo512(&ctx_echo, static_cast<const void*>(hash), 64);
-        sph_echo512_close(&ctx_echo, static_cast<void*>(hash));
+        sph_echo512(&ctx_echo, hash, 64);
+        sph_echo512_close(&ctx_echo, hash);
 
         sph_echo512_init(&ctx_echo);
-        sph_echo512(&ctx_echo, static_cast<const void*>(hash), 64);
-        sph_echo512_close(&ctx_echo, static_cast<void*>(hash));
+        sph_echo512(&ctx_echo, hash, 64);
+        sph_echo512_close(&ctx_echo, hash);
     }
     sph_skein512_init(&ctx_skein);
-    sph_skein512(&ctx_skein, static_cast<const void*>(hash), 64);
-    sph_skein512_close(&ctx_skein, static_cast<void*>(hash));
+    sph_skein512(&ctx_skein, hash, 64);
+    sph_skein512_close(&ctx_skein, hash);
 
     for (int i=0; i<32; i++)
         hash[i] ^= hash[i+32];
