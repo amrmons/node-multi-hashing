@@ -28,7 +28,7 @@
 
 #define START_OF_LAST_23_NIBBLES_OF_HASH 41
 
-int GetNibble(unsigned char *pBlockBegin, int index) 
+int GetNibbleCPU23R(unsigned char *pBlockBegin, int index) 
 {
     index = 63 - index;
     if (index % 2 == 1)
@@ -82,7 +82,7 @@ void cpu23r_hash(const char* input, char* output)
             lenToHash = 64;
         }
 
-        hashSelection = GetNibble(prevBlockBytes, START_OF_LAST_23_NIBBLES_OF_HASH + i);
+        hashSelection = GetNibbleCPU23R(prevBlockBytes, START_OF_LAST_23_NIBBLES_OF_HASH + i);
 
         switch(hashSelection) {
             case 0:

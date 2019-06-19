@@ -20,7 +20,7 @@
 #include "sha3/sph_whirlpool.h"
 #include "sha3/sph_sha2.h"
 
-int GetNibble(char *pHashBegin, int index) 
+int GetNibbleX16s(char *pHashBegin, int index) 
 {
     index = 63 - index;
     if (index % 2 == 1)
@@ -85,7 +85,7 @@ void x16s_hash(const char* input, char* output)
             lenToHash = 64;
         }
 
-        int hashSelection = GetNibble(order, i); // change PrevBlockHash to order (x16s)
+        int hashSelection = GetNibbleX16s(order, i); // change PrevBlockHash to order (x16s)
 
         switch(hashSelection) {
             case 0:

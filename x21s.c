@@ -25,7 +25,7 @@
 #include "lyra2.h"
 #include "SWIFFTX/SWIFFTX.h"
 
-int GetNibble(char *pHashBegin, int index) 
+int GetNibbleX21s(char *pHashBegin, int index) 
 {
     index = 63 - index;
     if (index % 2 == 1)
@@ -95,7 +95,7 @@ void x21s_hash(const char* input, char* output)
             lenToHash = 64;
         }
 
-        int hashSelection = GetNibble(order, i); // change PrevBlockHash to scrambleHash (x16s)
+        int hashSelection = GetNibbleX21s(order, i); // change PrevBlockHash to scrambleHash (x16s)
         switch(hashSelection) {
             case 0:
                 sph_blake512_init(&ctx_blake);
