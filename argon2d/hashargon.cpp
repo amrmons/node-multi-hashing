@@ -62,7 +62,7 @@ static void EnsureArgon2MemoryAllocated(const int64_t nTime)
             std::free (pArgon2Ad);
         pArgon2Ad = (uint8_t*) std::malloc(nSize);
         if (pArgon2Ad == nullptr)
-            throw std::runtime_error("Could not allocate memory for argon2");
+            throw THROW_ERROR_EXCEPTION("Could not allocate memory for argon2");
         nArgon2AdLen = nSize;
         UpdateArgon2AdValues();
     }
