@@ -1,3 +1,8 @@
+// Copyright (c)  The Bitcoin Core developers
+// Copyright (c) 2017 The Raven Core developers
+// Copyright (c) 2018 The Rito Core developers
+// Distributed under the MIT software license, see the accompanying
+// file COPYING or http://www.opensource.org/licenses/mit-license.php.
 /* $Id: md_helper.c 216 2010-06-08 09:46:57Z tp $ */
 /*
  * This file contains some functions which implement the external data
@@ -76,7 +81,6 @@
  * @author   Thomas Pornin <thomas.pornin@cryptolog.com>
  */
 
-
 #ifdef _MSC_VER
 #pragma warning (disable: 4146)
 #endif
@@ -122,7 +126,7 @@
 #ifndef CLOSE_ONLY
 
 #ifdef SPH_UPTR
-static void
+void
 SPH_XCAT(HASH, _short)(void *cc, const void *data, size_t len)
 #else
 void
@@ -132,7 +136,7 @@ SPH_XCAT(sph_, HASH)(void *cc, const void *data, size_t len)
 	SPH_XCAT(sph_, SPH_XCAT(HASH, _context)) *sc;
 	unsigned current;
 
-	sc = cc;
+	sc = (SPH_XCAT(sph_, SPH_XCAT(HASH, _context))*) cc;
 #if SPH_64
 	current = (unsigned)sc->count & (SPH_BLEN - 1U);
 #else
@@ -182,7 +186,7 @@ SPH_XCAT(sph_, HASH)(void *cc, const void *data, size_t len)
 		SPH_XCAT(HASH, _short)(cc, data, len);
 		return;
 	}
-	sc = cc;
+	sc = (SPH_XCAT(sph_, SPH_XCAT(HASH, _context))*) cc;
 #if SPH_64
 	current = (unsigned)sc->count & (SPH_BLEN - 1U);
 #else
@@ -204,7 +208,7 @@ SPH_XCAT(sph_, HASH)(void *cc, const void *data, size_t len)
 #endif
 	orig_len = len;
 	while (len >= SPH_BLEN) {
-		RFUN(data, SPH_VAL);
+		RFUN((const unsigned char*)data, SPH_VAL);
 		len -= SPH_BLEN;
 		data = (const unsigned char *)data + SPH_BLEN;
 	}
@@ -236,7 +240,7 @@ SPH_XCAT(sph_, HASH)(void *cc, const void *data, size_t len)
  * Perform padding and produce result. The context is NOT reinitialized
  * by this function.
  */
-static void
+void
 SPH_XCAT(HASH, _addbits_and_close)(void *cc,
 	unsigned ub, unsigned n, void *dst, unsigned rnum)
 {
@@ -246,7 +250,8 @@ SPH_XCAT(HASH, _addbits_and_close)(void *cc,
 	sph_u32 low, high;
 #endif
 
-	sc = cc;
+	sc = (SPH_XCAT(sph_, SPH_XCAT(HASH, _context))*) cc;
+
 #if SPH_64
 	current = (unsigned)sc->count & (SPH_BLEN - 1U);
 #else
@@ -340,7 +345,7 @@ SPH_XCAT(HASH, _addbits_and_close)(void *cc,
 #endif
 }
 
-static void
+void
 SPH_XCAT(HASH, _close)(void *cc, void *dst, unsigned rnum)
 {
 	SPH_XCAT(HASH, _addbits_and_close)(cc, 0, 0, dst, rnum);
