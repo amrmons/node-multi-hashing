@@ -25,12 +25,12 @@
 #include "lyra2.h"
 #include "SWIFFTX/SWIFFTX.h"
 
-int GetNibble(char *pHashBegin, int index) const 
+int GetNibble(char *pHashBegin, int index) 
 {
     index = 63 - index;
     if (index % 2 == 1)
-        return(*pHashBegin[index / 2] >> 4);
-    return(*pHashBegin[index / 2] & 0x0F); 
+        return(pHashBegin[index / 2] >> 4);
+    return(pHashBegin[index / 2] & 0x0F); 
 } 
 
 void x21s_hash(const char* input, char* output)

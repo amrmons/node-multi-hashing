@@ -20,12 +20,12 @@
 #include "sha3/sph_whirlpool.h"
 #include "sha3/sph_sha2.h"
 
-int GetNibble(char *pHashBegin, int index) const 
+int GetNibble(char *pHashBegin, int index) 
 {
     index = 63 - index;
     if (index % 2 == 1)
-        return(*pHashBegin[index / 2] >> 4);
-    return(*pHashBegin[index / 2] & 0x0F); 
+        return(pHashBegin[index / 2] >> 4);
+    return(pHashBegin[index / 2] & 0x0F); 
 } 
 
 void x16s_hash(const char* input, char* output)
@@ -85,7 +85,7 @@ void x16s_hash(const char* input, char* output)
             lenToHash = 64;
         }
 
-        hashSelection = GetHashSelectionX16R(scrambleHash, i); // change PrevBlockHash to scrambleHash (x16s)
+        hashSelection = GetNibble(scrambleHash, i); // change PrevBlockHash to scrambleHash (x16s)
 
         switch(hashSelection) {
             case 0:
