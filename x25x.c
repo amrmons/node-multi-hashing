@@ -157,7 +157,7 @@ void x25x_hash(const char* input, char* output)
 			0xd7ee, 0x6783, 0xfa6c, 0x4b9c
 		};
 
-		uint16_t* block_pointer = (uint16_t*)hash;
+		uint16_t* block_pointer = (uint16_t*)totalHashes;
         int r=0, i=0;
 		for (r = 0; r < X25X_SHUFFLE_ROUNDS; r++) {
 			for (i = 0; i < X25X_SHUFFLE_BLOCKS; i++) {
