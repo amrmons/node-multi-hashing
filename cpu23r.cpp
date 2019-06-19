@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include <string.h>
 
-#include "argon2/hashargon.h"
+#include "argon2d/hashargon.h"
 
 
 #include "sha3/sph_blake.h"
