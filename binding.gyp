@@ -57,7 +57,7 @@
                 "skein.c",
                 "skunkhash.c",
                 "Sponge.c",
-                "timetravel10.c",
+                "timetravel10.cpp",
                 "tribus.c",
                 "sha1.c",
                 "sha3/sph_gost.c",
