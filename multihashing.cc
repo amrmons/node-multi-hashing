@@ -1262,9 +1262,7 @@ NAN_METHOD(timetravel10) {
     char * input = Buffer::Data(target);
     char *output = (char*) malloc(sizeof(char) * 32);
 
-    uint32_t input_len = Buffer::Length(target);
-
-    timetravel10_hash(input, output, input_len);
+    timetravel10_hash(input, output);
 
     info.GetReturnValue().Set(Nan::NewBuffer(output, 32).ToLocalChecked());
 }
