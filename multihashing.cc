@@ -5,6 +5,7 @@
 #include "nan.h"
 
 #include "argon2d/hashargon.h"
+#include "timetravel10.h"
 
 extern "C" {
     #include "allium.h"
@@ -43,7 +44,6 @@ extern "C" {
     #include "skein.h"
     #include "skunkhash.h"
     #include "Sponge.h"
-    #include "timetravel10.h"
     #include "tribus.h"
     #include "whirlpoolx.h"
     #include "x5.h"
