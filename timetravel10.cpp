@@ -34,7 +34,7 @@ void timetravel10_hash(const char* input, char* output)
     uint8_t hash[HASH_FUNC_COUNT * 64];
     uint32_t timestamp;
     
-    memcpy(&timestamp, input + 68, 4);
+    std::memcpy(&timestamp, input + 68, 4);
 
     // We want to permute algorithms. To get started we
     // initialize an array with a sorted sequence of unique
@@ -143,5 +143,5 @@ void timetravel10_hash(const char* input, char* output)
 	    }
     }
 
-    memcpy(output, hash + HASH_FUNC_COUNT-64, 32);
+    std::memcpy(output, hash + HASH_FUNC_COUNT-64, 32);
 }
