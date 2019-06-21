@@ -106,7 +106,7 @@ void timetravel10_hash(const char* input, char* output)
                 if (i == 0)
                     sph_luffa512 (&ctx_luffa, input, 80);
                 else
-                    sph_luffa512 (&ctx_luffa, static_cast<void*>(&hash[i-1]), 64);
+                    sph_luffa512 (&ctx_luffa, hash + (i*64)-64), 64);
                 sph_luffa512_close(&ctx_luffa, hash + (i*64));
             break;
             case 7:
