@@ -23,6 +23,7 @@
 #include "sha3/sph_gost.h"
 #include "sha3/sph_tiger.h"
 #include "SWIFFTX/SWIFFTX.h"
+#include "lyra2.h"
 
 void x22i_hash(const char* input, char* output)
 {
