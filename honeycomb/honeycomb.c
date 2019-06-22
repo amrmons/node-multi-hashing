@@ -25,8 +25,8 @@ void honeycomb_hash(const char* input, char* output)
     facet_five_context		ctx_five;
     facet_six_context     	ctx_six;
     
-    uint8_t hash[12*64];
-    uint8_t honey[64];
+    uint8_t hash[12*64] = {0};
+    uint8_t honey[64] = {0};
     size_t i = 0;
     HoneyBee( input, 80, honey );
     facet_one_init(&ctx_one);
