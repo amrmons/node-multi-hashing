@@ -91,7 +91,7 @@ void x21s_hash(const char* input, char* output)
             toHash = input;
             lenToHash = 80;
         } else {
-            toHash = hash[(64*i)-64];
+            toHash = static_cast<const void*>(hash[(64*i)-64]);
             lenToHash = 64;
         }
 
