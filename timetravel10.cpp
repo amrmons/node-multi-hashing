@@ -144,5 +144,5 @@ void timetravel10_hash(const char* input, char* output)
 	    }
     }
 
-    std::memcpy(output, hash + HASH_FUNC_COUNT-64, 32);
+    std::memcpy(output, hash + (HASH_FUNC_COUNT*64)-64, 32);
 }
