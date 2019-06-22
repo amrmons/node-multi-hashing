@@ -6,6 +6,9 @@
 
 #include "argon2d/hashargon.h"
 #include "timetravel10.h"
+#include "x25x.h"
+#include "x21s.h"
+#include "x22i.h"
 
 extern "C" {
     #include "allium.h"
@@ -55,9 +58,6 @@ extern "C" {
     #include "x15.h"
     #include "x16r.h"
     #include "x17.h"
-    #include "x25x.h"
-    #include "x21s.h"
-    #include "x22i.h"
     #include "x16s.h"
     #include "xevan.h"
     #include "zr5.h"
