@@ -68,5 +68,5 @@ void honeycomb_hash(const char* input, char* output)
     for(i = 0; i < 64; i++)
         hash[(11*64)+i] = hash[(8*64)+i]^hash[(10*64)+i];
 	
-    memcpy(output, hash + 11, 32);
+    memcpy(output, hash + 11*64, 32);
 }
