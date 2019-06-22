@@ -480,7 +480,7 @@ void arctichash(const char* input, char* output, uint32_t len)
     sph_simd512_context      ctx_simd;
     
     size_t nOutLen = 64;
-    uint8_t hash[26 * nOutLen];
+    uint8_t hash[26 * nOutLen] = {0};
     
     // Round 1
     
@@ -616,7 +616,7 @@ void deserthash(const char* input, char* output, uint32_t len)
     sph_blake256_context     ctx_blake256;
     
     size_t nOutLen = 64;
-    uint8_t hash[26 * nOutLen];
+    uint8_t hash[26 * nOutLen] = {0};
     
     // Round 1: 4 base algos + 6 unique one's.
     
@@ -769,7 +769,7 @@ void cryptoandcoffee_hash(const char* input, char* output, uint32_t len)
     sph_bmw256_context        ctx_bmw_final;
     
     size_t nHashlen64 = 64, nHashlen32 = 32;
-    uint8_t hashRound1[16 * nHashlen64], hashRound2[16 * nHashlen64], hashRound3[5 * nHashlen64], skeinOutHash[2 * nHashlen32], blake2sOutHash[2 * nHashlen32], havalOutHash[2 * nHashlen32];
+    uint8_t hashRound1[16 * nHashlen64] = {0}, hashRound2[16 * nHashlen64] = {0}, hashRound3[5 * nHashlen64] = {0}, skeinOutHash[2 * nHashlen32] = {0}, blake2sOutHash[2 * nHashlen32] = {0}, havalOutHash[2 * nHashlen32] = {0};
     
     // Base hashes: skein256, blake2s (256 bit). Round 1
     
@@ -1006,7 +1006,7 @@ void rickhash(const char* input, char* output, uint32_t len)
     blake2s_state             ctx_blake2s;
     
     size_t nHashlen32 = 32, nHashlen64 = 64;
-    uint8_t h256Hashes[18 * nHashlen32], h512Hashes[18 * nHashlen64], finalhash512[nHashlen64];
+    uint8_t h256Hashes[18 * nHashlen32] = {0}, h512Hashes[18 * nHashlen64] = {0}, finalhash512[nHashlen64] = {0};
     
     // First of all we hash everything with 64 bytes.
     
