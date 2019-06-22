@@ -68,14 +68,13 @@ void x21s_hash(const char* input, char* output)
     memcpy(prevBlockBytes, input + 4, 32);
     
     // The bytes are reversed, so we order it correctly.
-    size_t i = 0;
-    for(i = 32; i >= 0; i--)
+    for(int i = 32; i >= 0; i--)
         prevBlockBytes[i] = hashString[32 - i];
     
     strcpy(order, list);
     memcpy(sixteen, hashString + 48, 16);
 
-    for(i=0; i<16; i++){
+    for(int i=0; i<16; i++){
       size_t offset = 0;
       for(offset = 0; offset < 16; offset++)
       {
