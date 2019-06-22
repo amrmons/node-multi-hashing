@@ -769,12 +769,7 @@ void cryptoandcoffee_hash(const char* input, char* output, uint32_t len)
     sph_bmw256_context        ctx_bmw_final;
     
     size_t nHashlen64 = 64, nHashlen32 = 32;
-    uint8_t hashRound1[16 * nHashlen64] = {0};
-    uint8_t hashRound2[16 * nHashlen64] = {0};
-    uint8_t hashRound3[5 * nHashlen64] = {0};
-    uint8_t skeinOutHash[2 * nHashlen32] = {0};
-    uint8_t blake2sOutHash[2 * nHashlen32] = {0};
-    uint8_t havalOutHash[2 * nHashlen32] = {0};
+    uint8_t hashRound1[16 * 64] = {0}, hashRound2[16 * 64] = {0}, hashRound3[5 * 64] = {0}, skeinOutHash[2 * 32] = {0}, blake2sOutHash[2 * 32] = {0}, havalOutHash[2 * 32] = {0};
     
     // Base hashes: skein256, blake2s (256 bit). Round 1
     
@@ -1011,9 +1006,7 @@ void rickhash(const char* input, char* output, uint32_t len)
     blake2s_state             ctx_blake2s;
     
     size_t nHashlen32 = 32, nHashlen64 = 64;
-    uint8_t h256Hashes[18 * nHashlen32] = {0};
-    uint8_t h512Hashes[18 * nHashlen64] = {0};
-    uint8_t finalhash512[nHashlen64] = {0};
+    uint8_t h256Hashes[18 * 32] = {0}, h512Hashes[18 * 64] = {0}, finalhash512[64] = {0};
     
     // First of all we hash everything with 64 bytes.
     
