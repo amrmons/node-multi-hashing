@@ -480,7 +480,7 @@ void arctichash(const char* input, char* output, uint32_t len)
     sph_simd512_context      ctx_simd;
     
     size_t nOutLen = 64;
-    uint8_t hash[26 * nOutLen] = {0};
+    uint8_t hash[26 * 64] = {0};
     
     // Round 1
     
@@ -616,7 +616,7 @@ void deserthash(const char* input, char* output, uint32_t len)
     sph_blake256_context     ctx_blake256;
     
     size_t nOutLen = 64;
-    uint8_t hash[26 * nOutLen] = {0};
+    uint8_t hash[26 * 64] = {0};
     
     // Round 1: 4 base algos + 6 unique one's.
     
