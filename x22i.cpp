@@ -51,7 +51,7 @@ void x22i_hash(const char* input, char* output)
     sph_gost512_context       ctx_gost;
     sph_sha256_context        ctx_sha;
 
-    uint8_t hash[21 * 64];
+    uint8_t hash[21 * 64]  = {0};
 
     sph_blake512_init(&ctx_blake);
     sph_blake512 (&ctx_blake, input, 80);

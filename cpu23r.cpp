@@ -63,7 +63,7 @@ void cpu23r_hash(const char* input, char* output)
     unsigned int t_costs = 2;
     unsigned int m_costs = 16;
     unsigned char prevBlockBytes[32];
-    uint8_t hash[64*23];
+    uint8_t hash[64*23] = {0};
     size_t index = 0;
     int hashSelection;
     

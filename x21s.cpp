@@ -60,7 +60,7 @@ void x21s_hash(const char* input, char* output)
     sph_sha256_context        ctx_sha;
 
     char prevBlockBytes[32];
-    uint8_t hash[20*64];
+    uint8_t hash[20*64] = {0};
     char hashString[32];
     char list [] = "0123456789abcdef";
     char order[16], sixteen[16];

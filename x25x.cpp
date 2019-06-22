@@ -56,7 +56,7 @@ void x25x_hash(const char* input, char* output)
     sph_sha256_context        ctx_sha;
     sph_panama_context        ctx_panama;
 
-    uint8_t totalHashes[64 * 25];
+    uint8_t totalHashes[64 * 25] = {0};
 
     sph_blake512_init(&ctx_blake);
     sph_blake512 (&ctx_blake, input, 80);
