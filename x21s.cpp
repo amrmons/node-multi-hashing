@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
+#include <string>
 
 #include "x21s.h"
 #include "sha3/sph_tiger.h"
@@ -28,12 +29,44 @@ extern "C" {
     #include "SWIFFTX/SWIFFTX.h"
 }
 
-int GetNibbleX21s(char *pHashBegin, int index) 
+unsigned char ConvertCharToX21sAlgoID(const char *pCharPostion) 
 {
-    index = 63 - index;
-    if (index % 2 == 1)
-        return(pHashBegin[index / 2] >> 4);
-    return(pHashBegin[index / 2] & 0x0F); 
+    switch(*pCharPostion)
+    {
+        case 0x30:
+            return 0;
+        case 0x31:
+            return 1;
+        case 0x32:
+            return 2;
+        case 0x33:
+            return 3;
+        case 0x34:
+            return 4;
+        case 0x35:
+            return 5;
+        case 0x36:
+            return 6;
+        case 0x37:
+            return 7;
+        case 0x38:
+            return 8;
+        case 0x39:
+            return 9;
+        case 0x61:
+            return 10;
+        case 0x62:
+            return 11;
+        case 0x63:
+            return 12;
+        case 0x64:
+            return 13;
+        case 0x65:
+            return 14;
+        case 0x66:
+            return 15;
+    }
+    return 0x0;
 } 
 
 void x21s_hash(const char* input, char* output)
@@ -59,31 +92,32 @@ void x21s_hash(const char* input, char* output)
     sph_gost512_context       ctx_gost;
     sph_sha256_context        ctx_sha;
 
-    char prevBlockBytes[32];
-    uint8_t hash[20*64] = {0};
-    char hashString[32];
-    char list [] = "0123456789abcdef";
-    char order[16], sixteen[16];
+    uint8_t hash[16*64] = {0};
+    unsigned char prevBlockBytes[32] = {0};
+    char currentSymbol[4];
     
     memcpy(prevBlockBytes, input + 4, 32);
+    std::string hashString;
     
     // The bytes are reversed, so we order it correctly.
-    for(int i = 32; i >= 0; i--)
-        prevBlockBytes[i] = hashString[32 - i];
+    for(int i = 31; i >= 0; i--)
+    {
+        sprintf(currentSymbol, "%02x", prevBlockBytes[i]);
+        hashString.append(currentSymbol);
+    }
     
-    strcpy(order, list);
-    memcpy(sixteen, hashString + 48, 16);
+    std::string list = "0123456789abcdef";
+    std::string order = list;
+
+    std::string hashFront = hashString.substr(0,48); // preserve first 48 chars
+    std::string sixteen = hashString.substr(48,64); // extract last sixteen chars
 
     for(int i=0; i<16; i++){
-      size_t offset = 0;
-      for(offset = 0; offset < 16; offset++)
-      {
-          if(list[i] == sixteen[i])
-              break; // offset found
-      }
-      order[i] = (char)offset;
-    }
+      int offset = list.find(sixteen[i]); // find offset of sixteen char
 
+      order.insert(0, 1, order[offset]); // insert the nth character at the beginning
+      order.erase(offset+1, 1);  // erase the n+1 character (was nth)
+    }
 
     for (int i=0;i<16;i++)
     {
@@ -97,7 +131,7 @@ void x21s_hash(const char* input, char* output)
             lenToHash = 64;
         }
 
-        int hashSelection = GetNibbleX21s(order, i); // change PrevBlockHash to scrambleHash (x16s)
+        int hashSelection = ConvertCharToX21sAlgoID(order.data() +i); // change PrevBlockHash to scrambleHash (x16s)
         switch(hashSelection) {
             case 0:
                 sph_blake512_init(&ctx_blake);
@@ -184,19 +218,19 @@ void x21s_hash(const char* input, char* output)
 
     sph_haval256_5_init(&ctx_haval);
     sph_haval256_5 (&ctx_haval, hash + 15*64, 64);
-    sph_haval256_5_close(&ctx_haval, hash + 16*64);
+    sph_haval256_5_close(&ctx_haval, hash + 15*64);
 
     sph_tiger_init(&ctx_tiger);
-    sph_tiger (&ctx_tiger, hash + 16*64, 64);
-    sph_tiger_close(&ctx_tiger, hash + 17*64);
+    sph_tiger (&ctx_tiger, hash + 15*64, 64);
+    sph_tiger_close(&ctx_tiger, hash + 15*64);
 
-    LYRA2(hash + 18*64, 32, hash + 17*64, 32, hash + 17*64, 32, 1, 4, 4);
+    LYRA2(hash + 15*64, 32, hash + 15*64, 32, hash + 15*64, 32, 1, 4, 4);
 
     sph_gost512_init(&ctx_gost);
-    sph_gost512 (&ctx_gost, hash + 18*64, 64);
-    sph_gost512_close(&ctx_gost, hash + 19*64);
+    sph_gost512 (&ctx_gost, hash + 15*64, 64);
+    sph_gost512_close(&ctx_gost, hash + 15*64);
 
     sph_sha256_init(&ctx_sha);
-    sph_sha256 (&ctx_sha, hash + 19*64, 64);
+    sph_sha256 (&ctx_sha, hash + 15*64, 64);
     sph_sha256_close(&ctx_sha, output);
 }
