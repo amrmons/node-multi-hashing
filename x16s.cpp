@@ -2,30 +2,67 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
+#include <string>
 
-#include "sha3/sph_blake.h"
-#include "sha3/sph_bmw.h"
-#include "sha3/sph_groestl.h"
-#include "sha3/sph_jh.h"
-#include "sha3/sph_keccak.h"
-#include "sha3/sph_skein.h"
-#include "sha3/sph_luffa.h"
-#include "sha3/sph_cubehash.h"
-#include "sha3/sph_shavite.h"
-#include "sha3/sph_simd.h"
-#include "sha3/sph_echo.h"
-#include "sha3/sph_hamsi.h"
-#include "sha3/sph_fugue.h"
-#include "sha3/sph_shabal.h"
-#include "sha3/sph_whirlpool.h"
-#include "sha3/sph_sha2.h"
+#include "x16s.h"
 
-int GetNibbleX16s(char *pHashBegin, int index) 
+extern "C" {
+    #include "sha3/sph_blake.h"
+    #include "sha3/sph_bmw.h"
+    #include "sha3/sph_groestl.h"
+    #include "sha3/sph_jh.h"
+    #include "sha3/sph_keccak.h"
+    #include "sha3/sph_skein.h"
+    #include "sha3/sph_luffa.h"
+    #include "sha3/sph_cubehash.h"
+    #include "sha3/sph_shavite.h"
+    #include "sha3/sph_simd.h"
+    #include "sha3/sph_echo.h"
+    #include "sha3/sph_hamsi.h"
+    #include "sha3/sph_fugue.h"
+    #include "sha3/sph_shabal.h"
+    #include "sha3/sph_whirlpool.h"
+    #include "sha3/sph_sha2.h"
+}
+
+unsigned char ConvertCharToX16sAlgoID(const char *pCharPostion) 
 {
-    index = 63 - index;
-    if (index % 2 == 1)
-        return(pHashBegin[index / 2] >> 4);
-    return(pHashBegin[index / 2] & 0x0F); 
+    switch(*pCharPostion)
+    {
+        case 0x30:
+            return 0;
+        case 0x31:
+            return 1;
+        case 0x32:
+            return 2;
+        case 0x33:
+            return 3;
+        case 0x34:
+            return 4;
+        case 0x35:
+            return 5;
+        case 0x36:
+            return 6;
+        case 0x37:
+            return 7;
+        case 0x38:
+            return 8;
+        case 0x39:
+            return 9;
+        case 0x61:
+            return 10;
+        case 0x62:
+            return 11;
+        case 0x63:
+            return 12;
+        case 0x64:
+            return 13;
+        case 0x65:
+            return 14;
+        case 0x66:
+            return 15;
+    }
+    return 0x0;
 } 
 
 void x16s_hash(const char* input, char* output)
@@ -46,31 +83,32 @@ void x16s_hash(const char* input, char* output)
     sph_shabal512_context    ctx_shabal;     //D
     sph_whirlpool_context    ctx_whirlpool;  //E
     sph_sha512_context       ctx_sha512; //F
-
-    char prevBlockBytes[32];
-    uint8_t hash[16*64];
-    char hashString[32];
-    char list [] = "0123456789abcdef";
-    char order[16], sixteen[16];
+    
+    uint8_t hash[16*64] = {0};
+    unsigned char prevBlockBytes[32] = {0};
+    char currentSymbol[4];
     
     memcpy(prevBlockBytes, input + 4, 32);
+    std::string hashString;
     
     // The bytes are reversed, so we order it correctly.
-    size_t i = 0;
-    for(i = 32; i >= 0; i--)
-        prevBlockBytes[i] = hashString[32 - i];
+    for(int i = 31; i >= 0; i--)
+    {
+        sprintf(currentSymbol, "%02x", prevBlockBytes[i]);
+        hashString.append(currentSymbol);
+    }
     
-    strcpy(order, list);
-    memcpy(sixteen, hashString + 48, 16);
-    
-    for(i=0; i<16; i++){
-      size_t offset = 0;
-      for(offset = 0; offset < 16; offset++)
-      {
-          if(list[i] == sixteen[i])
-              break; // offset found
-      }
-      order[i] = (char)offset;
+    std::string list = "0123456789abcdef";
+    std::string order = list;
+
+    std::string hashFront = hashString.substr(0,48); // preserve first 48 chars
+    std::string sixteen = hashString.substr(48,64); // extract last sixteen chars
+
+    for(int i=0; i<16; i++){
+      int offset = list.find(sixteen[i]); // find offset of sixteen char
+
+      order.insert(0, 1, order[offset]); // insert the nth character at the beginning
+      order.erase(offset+1, 1);  // erase the n+1 character (was nth)
     }
 
     for (int i=0;i<16;i++)
@@ -85,7 +123,7 @@ void x16s_hash(const char* input, char* output)
             lenToHash = 64;
         }
 
-        int hashSelection = GetNibbleX16s(order, i); // change PrevBlockHash to order (x16s)
+        int hashSelection = ConvertCharToX16sAlgoID(order.data() +i); // change PrevBlockHash to order (x16s)
 
         switch(hashSelection) {
             case 0:
