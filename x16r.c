@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include <string.h>
 
+#include "sha256.h"
 #include "sha3/sph_blake.h"
 #include "sha3/sph_bmw.h"
 #include "sha3/sph_groestl.h"
@@ -62,64 +63,73 @@ static void getAlgoString(const uint8_t* prevblock, char *output)
 void x16rt_hash(const char* input, char* output, uint32_t len)
 {
     uint32_t hash[64/4];
-	char hashOrder[HASH_FUNC_COUNT + 1] = { 0 };
+    char hashOrder[HASH_FUNC_COUNT + 1] = { 0 };
 
-	sph_blake512_context     ctx_blake;
-	sph_bmw512_context       ctx_bmw;
-	sph_groestl512_context   ctx_groestl;
-	sph_skein512_context     ctx_skein;
-	sph_jh512_context        ctx_jh;
-	sph_keccak512_context    ctx_keccak;
-	sph_luffa512_context     ctx_luffa;
-	sph_cubehash512_context  ctx_cubehash;
-	sph_shavite512_context   ctx_shavite;
-	sph_simd512_context      ctx_simd;
-	sph_echo512_context      ctx_echo;
-	sph_hamsi512_context     ctx_hamsi;
-	sph_fugue512_context     ctx_fugue;
-	sph_shabal512_context    ctx_shabal;
-	sph_whirlpool_context    ctx_whirlpool;
-	sph_sha512_context       ctx_sha512;
+    sph_blake512_context     ctx_blake;
+    sph_bmw512_context       ctx_bmw;
+    sph_groestl512_context   ctx_groestl;
+    sph_skein512_context     ctx_skein;
+    sph_jh512_context        ctx_jh;
+    sph_keccak512_context    ctx_keccak;
+    sph_luffa512_context     ctx_luffa;
+    sph_cubehash512_context  ctx_cubehash;
+    sph_shavite512_context   ctx_shavite;
+    sph_simd512_context      ctx_simd;
+    sph_echo512_context      ctx_echo;
+    sph_hamsi512_context     ctx_hamsi;
+    sph_fugue512_context     ctx_fugue;
+    sph_shabal512_context    ctx_shabal;
+    sph_whirlpool_context    ctx_whirlpool;
+    sph_sha512_context       ctx_sha512;
 
-	void *in = (void*) input;
-	int size = len;
+    void *in = (void*) input;
+    int size = len;
     int i;
-    
+
+    uint32_t nTime;
     uint8_t nTimeHash[32];
-    
+
+    memcpy(nTime, input + 68, 4);
+
+    int32_t nTimeX16r = nTime & 0xffffff80;
+        
     sph_sha256_context       ctx_sha256;
     sph_sha256_init(&ctx_sha256);
-    sph_sha256(&ctx_sha256, &input[68], 4);
+    sph_sha256(&ctx_sha256, (const unsigned char*)&(nTimeX16r), 4);
+    sph_sha256_close(&ctx_sha256, nTimeHash);
+    sph_sha256_init(&ctx_sha256);
+    sph_sha256(&ctx_sha256, nTimeHash, 32);
     sph_sha256_close(&ctx_sha256, nTimeHash);
 
-	getAlgoString(nTimeHash, hashOrder);
 
-	for (i = 0; i < 16; i++)
-	{
-		const char elem = hashOrder[i];
-		const uint8_t algo = elem >= 'A' ? elem - 'A' + 10 : elem - '0';
+    getAlgoString(nTimeHash, hashOrder);
 
-		switch (algo) {
-		case BLAKE:
-			sph_blake512_init(&ctx_blake);
-			sph_blake512(&ctx_blake, in, size);
-			sph_blake512_close(&ctx_blake, hash);
-			break;
-		case BMW:
-			sph_bmw512_init(&ctx_bmw);
-			sph_bmw512(&ctx_bmw, in, size);
-			sph_bmw512_close(&ctx_bmw, hash);
-			break;
-		case GROESTL:
-			sph_groestl512_init(&ctx_groestl);
-			sph_groestl512(&ctx_groestl, in, size);
-			sph_groestl512_close(&ctx_groestl, hash);
-			break;
-		case SKEIN:
-			sph_skein512_init(&ctx_skein);
-			sph_skein512(&ctx_skein, in, size);
-			sph_skein512_close(&ctx_skein, hash);
-			break;
+    for (i = 0; i < 16; i++)
+    {
+        const char elem = hashOrder[i];
+        const uint8_t algo = elem >= 'A' ? elem - 'A' + 10 : elem - '0';
+
+        switch (algo) {
+        case BLAKE:
+            sph_blake512_init(&ctx_blake);
+            sph_blake512(&ctx_blake, in, size);
+            sph_blake512_close(&ctx_blake, hash);
+            break;
+        case BMW:
+            sph_bmw512_init(&ctx_bmw);
+            sph_bmw512(&ctx_bmw, in, size);
+            sph_bmw512_close(&ctx_bmw, hash);
+            break;
+        case GROESTL:
+            sph_groestl512_init(&ctx_groestl);
+            sph_groestl512(&ctx_groestl, in, size);
+            sph_groestl512_close(&ctx_groestl, hash);
+            break;
+        case SKEIN:
+            sph_skein512_init(&ctx_skein);
+            sph_skein512(&ctx_skein, in, size);
+            sph_skein512_close(&ctx_skein, hash);
+            break;
 		case JH:
 			sph_jh512_init(&ctx_jh);
 			sph_jh512(&ctx_jh, in, size);
