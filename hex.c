@@ -1,9 +1,3 @@
-#include "hex.h"
-#include <stdlib.h>
-#include <stdint.h>
-#include <string.h>
-#include <stdio.h>
-
 // Copyright (c) 2017-2018 The XDNA Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -58,7 +52,7 @@ static uint8_t get_first_algo(const uint32_t* prevblock) {
     return data[7] >> 4;
 }
 
-void hex_hash(const void* input, size_t len, char* output)
+void hex_hash(const char* input, size_t len, char* output)
 {
     unsigned char hash[128];
     uint8_t curr_algo;

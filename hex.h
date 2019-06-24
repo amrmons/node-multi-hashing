@@ -8,7 +8,7 @@ extern "C" {
 #include <stdint.h>
 #include <stddef.h>
 
-void hex_hash(const void* input, size_t len, char* output);
+void hex_hash(const char* input, size_t len, char* output);
 
 #ifdef __cplusplus
 }
