@@ -13,6 +13,8 @@
 
 #include <algorithm>
 #include <cstring>
+#include <stdint.h>
+#include <string.h>
 
 #define HASH_FUNC_BASE_TIMESTAMP 1492973331  // BitCore: Genesis Timestamp
 #define HASH_FUNC_COUNT 10                   // BitCore: HASH_FUNC_COUNT of 11
