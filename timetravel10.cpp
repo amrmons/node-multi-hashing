@@ -10,6 +10,7 @@
 #include "sha3/sph_shavite.h"
 #include "sha3/sph_simd.h"
 #include "sha3/sph_echo.h"
+#include <stdint.h>
 
 #include <algorithm>
 #include <cstring>
